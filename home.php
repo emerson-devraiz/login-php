@@ -2,8 +2,8 @@
 
 session_start();
 
-if (!isset($_SESSION['logado']) ||
-    $_SESSION['logado'] != true)
+if (!isset($_SESSION['logged']) ||
+    $_SESSION['logged'] != true)
 {
     setcookie('message', 'Acesso negado!');
     header('Location: login.php');
