@@ -10,26 +10,26 @@ if (isset($_COOKIE['message'])) {
 }
 
 if (isset($_POST['btnAcessar'])) {
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
+    $email    = $_POST['email'];
+    $password = $_POST['senha'];
 
-    $sql_login = "SELECT *
-                  FROM cliente
-                  WHERE (email = '$email')
-                  AND   (senha = '$senha');";
-    $query_login = mysqli_query($conexao, $sql_login) or die('Erro SQL: query_login');
-    $dados_login = mysqli_fetch_assoc($query_login);
+    $sqlLogin = "SELECT *
+                 FROM client
+                 WHERE (email = '$email')
+                 AND   (password = '$password');";
+    $queryLogin = mysqli_query($conexao, $sqlLogin) or die('Erro SQL: queryLogin');
+    $dataLogin = mysqli_fetch_assoc($queryLogin);
 
-    if ($dados_login) // Encontrou e-mail e senha?
+    if ($dataLogin) // Encontrou e-mail e senha?
     {
-        $_SESSION['logado'] = true;
+        $_SESSION['logged'] = true;
         header('Location: home.php');
     } else {
         echo "<script>alert('Usuário ou senha inválidos!');</script>";
     }
 } else {
-    if (isset($_SESSION['logado'])) {
-        unset($_SESSION['logado']);
+    if (isset($_SESSION['logged'])) {
+        unset($_SESSION['logged']);
     }
 }
 
@@ -67,8 +67,8 @@ if (isset($_POST['btnAcessar'])) {
             </li>
             <li class="collection-item">
                 <div class="input-field">
-                    <input id="senha" name="senha" type="password" maxlength="50" obrigatorio="true" nome-validar="Senha" value="">
-                    <label for="senha">Senha</label>
+                    <input id="password" name="password" type="password" maxlength="50" obrigatorio="true" nome-validar="Senha" value="">
+                    <label for="password">Senha</label>
                 </div>
             </li>
             <li class="collection-item center">
