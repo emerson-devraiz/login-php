@@ -13,14 +13,14 @@ if (isset($_POST['btnAcessar'])) {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    $sql_login = "SELECT *
-                  FROM cliente
-                  WHERE (email = '$email')
-                  AND   (senha = '$senha');";
-    $query_login = mysqli_query($conexao, $sql_login) or die('Erro SQL: query_login');
-    $dados_login = mysqli_fetch_assoc($query_login);
+    $sqlLogin = "SELECT *
+                 FROM cliente
+                 WHERE (email = '$email')
+                 AND   (senha = '$senha');";
+    $queryLogin = mysqli_query($conexao, $sqlLogin) or die('Erro SQL: queryLogin');
+    $dadosLogin = mysqli_fetch_assoc($queryLogin);
 
-    if ($dados_login) // Encontrou e-mail e senha?
+    if ($dadosLogin) // Encontrou e-mail e senha?
     {
         $_SESSION['logado'] = true;
         header('Location: home.php');
