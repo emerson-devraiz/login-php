@@ -11,11 +11,11 @@ if (isset($_COOKIE['message'])) {
 
 if (isset($_POST['btnAcessar'])) {
     $email    = $_POST['email'];
-    $password = $_POST['senha'];
+    $password = $_POST['password'];
 
     $sqlLogin = "SELECT *
                  FROM client
-                 WHERE (email = '$email')
+                 WHERE (email    = '$email')
                  AND   (password = '$password');";
     $queryLogin = mysqli_query($conexao, $sqlLogin) or die('Erro SQL: queryLogin');
     $dataLogin = mysqli_fetch_assoc($queryLogin);
