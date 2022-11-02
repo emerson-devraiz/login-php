@@ -6,7 +6,7 @@ require 'conexao/conexao.php';
 
 if (isset($_COOKIE['message'])) {
     $message = $_COOKIE['message'];
-    setcookie('message', '', -1, '/login');
+    setcookie('message', '', -1, '/');
 }
 
 if (isset($_POST['btnAcessar'])) {
