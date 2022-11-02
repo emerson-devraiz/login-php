@@ -10,8 +10,8 @@ if (isset($_COOKIE['message'])) {
 }
 
 if (isset($_POST['btnAcessar'])) {
-    $email    = $_POST['email'];
-    $password = $_POST['password'];
+    $email    = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $sqlLogin = "SELECT *
                  FROM client
