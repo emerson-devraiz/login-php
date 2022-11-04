@@ -13,20 +13,31 @@ if (isset($_POST['btnAcessar'])) {
     $email    = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $sqlLogin = "SELECT *
-                 FROM client
-                 WHERE (email    = '$email')
-                 AND   (password = '$password');";
-    $queryLogin = mysqli_query($conexao, $sqlLogin) or die('Erro SQL: queryLogin');
-    $dataLogin = mysqli_fetch_assoc($queryLogin);
+    $sqlExistEmail  = "SELECT *
+                       FROM client
+                       WHERE (email = '$email');";
+    $queryExistEmail = mysqli_query($conexao, $sqlExistEmail) or die('Erro SQL: queryExistEmail');
+    $dataExistEmail  = mysqli_fetch_assoc($queryExistEmail);
 
-    if ($dataLogin) // Encontrou e-mail e senha?
-    {
-        $_SESSION['logged'] = true;
-        header('Location: home.php');
-    } else {
-        echo "<script>alert('Usuário ou senha inválidos!');</script>";
+    if (empty($dataExistEmail) === true) {
+        echo "<script>
+                alert('E-mail não encontrado!');
+                location.href = 'login.php';
+              </script>";
+        exit;
     }
+
+    if (password_verify($password, $dataExistEmail['password']) === false) {
+        echo "<script>
+                alert('Senha inválida!');
+                location.href = 'login.php';
+              </script>";
+        exit;
+    }
+
+    $_SESSION['logged'] = true;
+    header('Location: home.php');
+
 } else {
     if (isset($_SESSION['logged'])) {
         unset($_SESSION['logged']);
