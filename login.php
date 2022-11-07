@@ -2,7 +2,9 @@
 
 session_start();
 
-require 'conexao/conexao.php';
+require 'connection/connection.php';
+
+$conn = connection();
 
 if (isset($_COOKIE['message'])) {
     $message = $_COOKIE['message'];
@@ -16,7 +18,7 @@ if (isset($_POST['btnAcessar'])) {
     $sqlExistEmail  = "SELECT *
                        FROM client
                        WHERE (email = '$email');";
-    $queryExistEmail = mysqli_query($conexao, $sqlExistEmail) or die('Erro SQL: queryExistEmail');
+    $queryExistEmail = mysqli_query($conn, $sqlExistEmail) or die('Erro SQL: queryExistEmail');
     $dataExistEmail  = mysqli_fetch_assoc($queryExistEmail);
 
     if (empty($dataExistEmail) === true) {
